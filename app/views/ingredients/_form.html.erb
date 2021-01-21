@@ -1,0 +1,17 @@
+<% if resource.errors.any? %>
+  <%= render partial: '/errors', locals: {instance: resource}%>
+<% end %>
+<%= form_for resource do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <br>
+
+  <% if resource.class == Recipe %>
+    <%= f.collection_check_boxes :ingredient_ids, Ingredient.sorted, :id, :name do |i|%>
+      <%= i.label%>
+      <%= i.check_box %><br>
+    <% end %>
+  <% end %>
+  <br>
+  <%= f.submit %>
+<% end %>
